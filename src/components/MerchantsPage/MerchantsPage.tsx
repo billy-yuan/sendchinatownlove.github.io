@@ -124,6 +124,9 @@ const MerchantsPage = (props: Props) => {
           </div>
 
           <div className={styles.merchantInfoContainer}>
+            <h2>
+              <b>{t('merchantsPage.merchantsHeader')}</b>
+            </h2>
             <div className={styles.highlightsContainer}>
               <DonationHighlightBox />
               <GiftMealHighlightBox />
