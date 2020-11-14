@@ -36,18 +36,19 @@ history.listen((location) => {
 const SellerPage = lazy(() => import('../SellerPage'));
 const MerchantsPage = lazy(() => import('../MerchantsPage'));
 const GiftAMealPage = lazy(() => import('../MerchantsPage/gam/GiftAMealPage'));
-const LightUpChinatownPage = lazy(
-  () => import('../LightUpChinatown/LightUpChinatownPage')
+const MegaGAM = lazy(() => import('../MerchantsPage/gam/billy_megaGAM'));
+const LightUpChinatownPage = lazy(() =>
+  import('../LightUpChinatown/LightUpChinatownPage')
 );
 const ErrorPage = lazy(() => import('../404Page'));
-const VoucherRedemptionPage = lazy(
-  () => import('../../pages/VoucherRedemption')
+const VoucherRedemptionPage = lazy(() =>
+  import('../../pages/VoucherRedemption')
 );
-const MerchantVoucherDashboard = lazy(
-  () => import('../../pages/MerchantVoucherDashboard')
+const MerchantVoucherDashboard = lazy(() =>
+  import('../../pages/MerchantVoucherDashboard')
 );
-const PassportVoucher = lazy(
-  () => import('../../pages/PassportRedemption/PassportVoucher')
+const PassportVoucher = lazy(() =>
+  import('../../pages/PassportRedemption/PassportVoucher')
 );
 const PassportRedemption = lazy(() => import('../../pages/PassportRedemption'));
 
@@ -82,6 +83,8 @@ const App = () => {
       case Page.LightUpChinatown:
         component = <LightUpChinatownPage />;
         break;
+      case Page.MegaGAM:
+        component = <MegaGAM menuOpen={menuOpen} />;
       case Page.Error:
       default:
         component = <ErrorPage menuOpen={menuOpen} />;
@@ -105,6 +108,9 @@ const App = () => {
     <Router history={history}>
       <Suspense fallback={<Loader isPage={true} />}>
         <Switch>
+          <Route path="/billyGAM">
+            <MegaGAM menuOpen={menuOpen} />
+          </Route>
           <Route path="/all">{returnComponent(Page.All)}</Route>
           <Route path="/voucher/:id">
             <VoucherProvider>
@@ -135,6 +141,7 @@ const App = () => {
           <Route exact path="/passport/lyft_rewards/:contact_id/redeem/:token">
             <PassportRedemption screen={ScreenName.LyftCode} />
           </Route>
+
           <Route
             path="/gift-a-meal"
             component={() => {
