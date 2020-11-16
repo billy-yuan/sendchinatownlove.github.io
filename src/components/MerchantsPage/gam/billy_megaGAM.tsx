@@ -9,6 +9,12 @@ import VideoComponent from './VideoComponent';
 
 import { useTranslation } from 'react-i18next';
 import MegaGAMHighlightBox from './MegaGAMHighlight';
+import dummyMegaGAMCampaign from './billyDummyData';
+
+// BY: Same as GiftAMealPage but added MegaGAMHighlightBox
+interface Props {
+  menuOpen: boolean;
+}
 
 interface Props {
   menuOpen: boolean;
@@ -20,24 +26,28 @@ const MegaGAM = (props: Props) => {
   const [activeCampaigns, setActiveCampaigns] = useState([]);
   const [pastCampaigns, setPastCampaigns] = useState([]);
   const [selectedCampaign, setSelectedCampaign] = useState(null);
+  // const [megaGAMCampaigns, setMegaGAMCampaigns] = useState([]);
 
-  // BY: Turn off until I can get data
-  // const fetchData = async () => {
-  //   const campaignData = await getCampaigns();
-  //   const active = campaignData.data.filter(
-  //     (campaign: any) => campaign.active && campaign.valid
-  //   );
-  //   setActiveCampaigns(active);
-  //   const past = campaignData.data
-  //     .filter((campaign: any) => !campaign.active)
-  //     .reverse();
-  //   setPastCampaigns(past);
-  // };
+  // setMegaGAMCampaigns(dummyMegaGAMCampaign); // BY: use dummy mega GAM data for development
 
-  // useEffect(() => {
-  //   fetchData();
-  //   // eslint-disable-next-line
-  // }, []);
+  const fetchData = async () => {
+    const campaignData = await getCampaigns();
+    const active = campaignData.data.filter(
+      (campaign: any) => campaign.active && campaign.valid
+    );
+
+    setActiveCampaigns(active);
+    const past = campaignData.data
+      .filter((campaign: any) => !campaign.active)
+      .reverse();
+    setPastCampaigns(past);
+    // BY: Add mega GAM data fetch
+  };
+
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div
@@ -66,9 +76,25 @@ const MegaGAM = (props: Props) => {
       >
         {t('gamHome.backButton')}
       </button>
-
-      {/* MegaGAM Highlight Box*/}
-      <MegaGAMHighlightBox />
+      {/* BY: Add props for data: total raised, number of meals, target number of meals, MegaGAM campaigns */}
+      <MegaGAMHighlightBox megaGAMCampaign={dummyMegaGAMCampaign} />
+      {activeCampaigns.length ? (
+        <>
+          <h5 className={styles.campaignHeader}>
+            {t('gamHome.activeSection')}
+          </h5>
+          {activeCampaigns.map((campaign: any) => (
+            <CampaignListItem
+              campaign={campaign}
+              key={campaign.id}
+              selectedCampaign={selectedCampaign}
+              setSelectedCampaign={setSelectedCampaign}
+            />
+          ))}
+        </>
+      ) : (
+        <NoActiveCampaignsBox />
+      )}
 
       <div className={styles.videoContainer}>
         <VideoComponent videoId="3zbqvouILto"></VideoComponent>
@@ -77,7 +103,6 @@ const MegaGAM = (props: Props) => {
         </h5>
       </div>
 
-      {/* BY: Replace with past mega GAMs */}
       <h5 className={styles.campaignHeader}>{t('gamHome.pastSection')}</h5>
       {pastCampaigns.map((campaign: any) => (
         <CampaignListItem

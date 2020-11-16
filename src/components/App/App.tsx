@@ -85,6 +85,7 @@ const App = () => {
         break;
       case Page.MegaGAM:
         component = <MegaGAM menuOpen={menuOpen} />;
+        break;
       case Page.Error:
       default:
         component = <ErrorPage menuOpen={menuOpen} />;
@@ -108,9 +109,7 @@ const App = () => {
     <Router history={history}>
       <Suspense fallback={<Loader isPage={true} />}>
         <Switch>
-          <Route path="/billyGAM">
-            <MegaGAM menuOpen={menuOpen} />
-          </Route>
+          <Route path="/billyGAM">{returnComponent(Page.MegaGAM)}</Route>
           <Route path="/all">{returnComponent(Page.All)}</Route>
           <Route path="/voucher/:id">
             <VoucherProvider>

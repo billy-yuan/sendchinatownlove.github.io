@@ -27,13 +27,8 @@ const dummyCampaign = {
   last_contribution: '2020-11-05',
 };
 
-const dummyMealsRaised = 50;
+const dummyMealsRaised = 50; //
 const dummyTargetMeals = 120;
-const dummyCurrentCampaign = {
-  'Campaign 1': 1,
-  'Campaign 2': 2,
-  'Campaign 3': 3,
-};
 
 const dummyText = {
   campaignInfo:
@@ -42,6 +37,7 @@ const dummyText = {
 
 // Production code below
 const GiftButton = () => {
+  // BY: Update so button opens payment modal
   const { t } = useTranslation();
   return (
     <Button
@@ -58,6 +54,7 @@ const GiftButton = () => {
 
 const DonationBar = () => {
   return (
+    // BY: Props of MegaGAMDonationBar are megaGAM campaign level details: active, number of meals, target meals, last contribution time, campaign end
     <MegaGAMDonationBar
       isActive={dummyCampaign.active}
       numContributions={dummyMealsRaised}
@@ -69,10 +66,9 @@ const DonationBar = () => {
   );
 };
 
-// Final component to be exported MegaGAMHighlightbox
-
-const MegaGAMHighlightBox = () => {
-  // needs contribution amount as prop
+// BY: Final component to be exported MegaGAMHighlightbox
+// BY: needs contribution amount, seller ID, campaign name (e.g. Apex x Shunfa) as props
+const MegaGAMHighlightBox = (megaGAMCampaign) => {
   return (
     <Container>
       <Hero height={304} src={lanternHeroTop} alt="lantern overlay" />
@@ -97,13 +93,40 @@ const MegaGAMHighlightBox = () => {
         <br />
         <br />
         <p>Learn more about our participating merchants:</p>
+
         <CampaignContainer>
-          {Object.keys(dummyCurrentCampaign).map((x) => (
-            <MegaGAMCampaignCard />
+          {megaGAMCampaign.megaGAMCampaign.map((campaignInfo) => (
+            <MegaGAMCampaignCard storeInfo={campaignInfo} />
           ))}
         </CampaignContainer>
-        <hr></hr>
-        <div>Apex for Youth: Footer: </div>
+
+        <hr style={{ marginTop: '50px', marginBottom: '50px' }}></hr>
+
+        <Footer>
+          <span
+            style={{
+              marginRight: '30px',
+              display: 'inline-block',
+            }}
+          >
+            Apex for Youth:
+          </span>
+          <VerticalBlock> </VerticalBlock>
+          <span
+            style={{
+              margin: '30px',
+              width: '60%',
+              display: 'inline-block',
+              wordWrap: 'break-word',
+              whiteSpace: 'normal',
+            }}
+          >
+            Donations for this campaign are in partnership with APEX for Youth,
+            a non-profit organization under IRS code 501(c)(3). Your donation
+            will be tax deductible to the extent allowable by law. [COPY TO BE
+            UPDATED]{' '}
+          </span>
+        </Footer>
       </InnerContainer>
     </Container>
   );
@@ -150,12 +173,30 @@ const CampaignContainer = styled.div`
   grid-template-columns: repeat(auto-fill, 350px);
   justify-content: center;
   grid-gap: 1.5rem 0rem;
+  margin-top: 60px;
+  margin-bottom: 60px;
+`;
+
+const Footer = styled.div`
+  width: 100%;
+  height: 100px;
+  padding-left: 10%;
+  padding-right: 10%;
+  text-align: center;
 `;
 const HeaderText = styled.p`
   color: #1e7c9a;
   font-family: 'Open Sans';
   font-size: 20px;
   font-weight: 600;
+`;
+
+//height: ${(props) => props.height}px;
+const Hero = styled.img`
+  height: 10vw;
+  width: 100%;
+  object-fit: cover;
+  padding-bottom: 1vw;
 `;
 
 const InnerContainer = styled.div`
@@ -169,10 +210,9 @@ const SubHeaderText = styled.p`
   font-weight: 600;
 `;
 
-//height: ${(props) => props.height}px;
-const Hero = styled.img`
-  height: 10vw;
-  width: 100%;
-  object-fit: cover;
-  padding-bottom: 1vw;
+const VerticalBlock = styled.span`
+  background-color: #ee4037;
+  height: 100%;
+  width: 10px;
+  display: inline-block;
 `;

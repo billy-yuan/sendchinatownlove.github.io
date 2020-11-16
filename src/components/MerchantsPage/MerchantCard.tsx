@@ -12,7 +12,7 @@ export interface Props {
 const MerchantCardBox = ({ storeInfo }: Props) => {
   let city = '';
   let state = '';
-
+  console.log(storeInfo);
   if (storeInfo!.locations && storeInfo!.locations[0]) {
     city = storeInfo!.locations[0].city;
     state = storeInfo!.locations[0].state;
