@@ -4,6 +4,7 @@
       "header": "您的爱心将会全数送到商家手里，帮助他们负担营运支出。您的网上交易资料将会做加密处理，款项会直接交给商家以支持他们。",
       "label1": "选择金额",
       "label2": "其他金额",
+      "mega_gam": "MegaGAM version: 100% of your support will go to the merchant.",
       "minimum": "最低",
       "maximum": "最高",
       "amount": "金额",
@@ -44,7 +45,8 @@
   },
   "purchase": {
     "donation": "捐款 - {{seller}}",
-    "voucher": "购买礼品券 - {{seller}}"
+    "voucher": "购买礼品券 - {{seller}}",
+    "mega_gam": "Title of MegaGAM December etc"
   },
   "errorPage": {
     "body": {
@@ -142,6 +144,9 @@
       "viewButton": "查看商家",
       "giftButton": "捐爱心餐",
       "fiscalSponsor": "Donations for this campaign are in partnership with {{sponsorName}}, a non-profit organization under IRS code 501(c)(3). Your donation will be tax deductible to the extent allowable by law."
+    },
+    "megaGamListItem": {
+      "giftButton": "捐爱心餐"
     }
   },
   "buyMealPool": {

@@ -194,7 +194,9 @@ const ModalCardDetails = ({
       case ModalPaymentTypes.modalPages.gift_card:
         return `voucher purchase`;
       case ModalPaymentTypes.modalPages.buy_meal:
-        return 'Gift a Meal purchase';
+        return 'Gift-a-Meal purchase';
+      case ModalPaymentTypes.modalPages.mega_gam:
+        return 'Gift-a-Meal purchase';
       default:
         return 'Donation';
     }
@@ -250,6 +252,8 @@ const ModalCardDetails = ({
         );
       case ModalPaymentTypes.modalPages.light_up_chinatown:
         return t('modalPayment.modalCardDetails.disclaimer.light_up_chinatown');
+      case ModalPaymentTypes.modalPages.mega_gam:
+        return t('modalPayment.modalCardDetails.disclaimer.mega_gam');
       default:
         break;
     }
@@ -259,14 +263,11 @@ const ModalCardDetails = ({
     type: ModalPaymentTypes.modalPages,
     amount: number
   ) => {
-    if (sellerId === 'send-chinatown-love')
-      type = ModalPaymentTypes.modalPages.donation_pool;
+    let lucPurchase =
+      type === ModalPaymentTypes.modalPages.light_up_chinatown &&
+      amount >= LIGHT_UP_CHINATOWN_TIER_2_MIN;
 
-    if (
-      type === ModalPaymentTypes.modalPages.gift_card ||
-      (type === ModalPaymentTypes.modalPages.light_up_chinatown &&
-        amount >= LIGHT_UP_CHINATOWN_TIER_2_MIN)
-    ) {
+    if (type === ModalPaymentTypes.modalPages.gift_card || lucPurchase) {
       return t('modalPayment.modalCardDetails.details.voucher');
     } else {
       return t('modalPayment.modalCardDetails.details.donation');
@@ -337,6 +338,7 @@ const ModalCardDetails = ({
               <b>
                 ${amount} {numberOfMealsText}
               </b>{' '}
+              {/* todo: For megagam, confirm which name to use in line below */}
               to {sellerName}{' '}
             </span>
 

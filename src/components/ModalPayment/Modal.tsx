@@ -27,7 +27,6 @@ export interface ModalProps {
 export const Modal = (props: Props) => {
   const { modalView } = useModalPaymentState(null);
   const dispatch = useModalPaymentDispatch(null);
-
   const closeModal = async (e: any) => {
     ReactPixel.trackCustom('ModalCloseButtonClick', {});
     e.preventDefault();
@@ -46,6 +45,8 @@ export const Modal = (props: Props) => {
         return <ModalCardDetails {...props} />;
       case ModalPaymentTypes.modalPages.confirmation:
         return <ModalConfirmation {...props} />;
+      case ModalPaymentTypes.modalPages.mega_gam:
+        return <ModalAmount {...props} />;
       default:
         return;
     }
