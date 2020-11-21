@@ -66,7 +66,7 @@ export const Modal = (props: Props) => {
       case ModalPaymentTypes.modalPages.light_up_chinatown:
         return t('purchase.donation_to', { seller: sellerName });
       case ModalPaymentTypes.modalPages.mega_gam:
-        return t('purchase.mega_gam'); // todo: confirm which copy to use & who the seller is
+        return t('purchase.mega_gam'); // todo: confirm which copy to use
       default:
         return t('purchase.donation', { seller: sellerName });
     }
@@ -92,7 +92,7 @@ export const Modal = (props: Props) => {
         <p>{t('donationPool.description2')}</p>
       )}
       <SubHeader>{getSubheaderText(modalView)}</SubHeader>
-      <MegaGAMBar modalView={modalView}>MEGA GAM BAR</MegaGAMBar>
+      {/* todo: Add Mega GAM donation bar */}
       <AmountContainer>
         <label htmlFor="select-amount">
           {t('paymentProcessing.amount.label1')}

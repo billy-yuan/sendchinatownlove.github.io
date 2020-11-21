@@ -263,14 +263,11 @@ const ModalCardDetails = ({
     type: ModalPaymentTypes.modalPages,
     amount: number
   ) => {
-    if (sellerId === 'send-chinatown-love') {
-      return t('modalPayment.modalCardDetails.details.donation');
-    } else if (type === ModalPaymentTypes.modalPages.gift_card) {
-      return t('modalPayment.modalCardDetails.details.voucher');
-    } else if (
+    let lucPurchase =
       type === ModalPaymentTypes.modalPages.light_up_chinatown &&
-      amount >= LIGHT_UP_CHINATOWN_TIER_2_MIN
-    ) {
+      amount >= LIGHT_UP_CHINATOWN_TIER_2_MIN;
+
+    if (type === ModalPaymentTypes.modalPages.gift_card || lucPurchase) {
       return t('modalPayment.modalCardDetails.details.voucher');
     } else {
       return t('modalPayment.modalCardDetails.details.donation');
@@ -341,11 +338,9 @@ const ModalCardDetails = ({
               <b>
                 ${amount} {numberOfMealsText}
               </b>{' '}
-              {/* For megagam, confirm which sellerName to use in line below */}
+              {/* todo: For megagam, confirm which name to use in line below */}
               to{' '}
-              {purchaseType === ModalPaymentTypes.modalPages.mega_gam
-                ? 'MEGA GAM - GET SELLER(S) INFO'
-                : sellerName}{' '}
+              {purchaseType === ModalPaymentTypes.modalPages.mega_gam && null}
             </span>
 
             {lucData.firstName !== '' && (
