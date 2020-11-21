@@ -2,6 +2,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
+import {
+  ModalPaymentConstants,
+  useModalPaymentDispatch,
+  ModalPaymentTypes,
+} from '../../../utilities/hooks/ModalPaymentContext';
+import Modal from '../../ModalPayment';
+
 import { Campaign } from '../../../utilities/api/types';
 import { tabletScreens } from '../../../utilities/general/responsive';
 
@@ -9,7 +16,18 @@ interface Props {
   campaign: Campaign;
 }
 
+const MegaGamModal: any = Modal;
+
 const MegaGamListItem = ({ campaign }: Props) => {
+  const dispatch = useModalPaymentDispatch(null);
+
+  const showModal = (event: any) => {
+    dispatch({
+      type: ModalPaymentConstants.SET_MODAL_VIEW,
+      payload: ModalPaymentTypes.modalPages.mega_gam,
+    });
+  };
+
   const { t } = useTranslation();
   return (
     <Container>
@@ -25,9 +43,12 @@ const MegaGamListItem = ({ campaign }: Props) => {
           <DonationContent>_DONATION_DATA_</DonationContent>
           {campaign.active && (
             // TODO: Open payment modal.
-            <Button className="button--filled" onClick={undefined}>
-              {t('gamHome.megaGamListItem.giftButton')}
-            </Button>
+            <>
+              <MegaGamModal></MegaGamModal>
+              <Button className="button--filled" onClick={showModal}>
+                {t('gamHome.megaGamListItem.giftButton')}
+              </Button>
+            </>
           )}
         </DonationContainer>
         <SellerDistributorContent>
