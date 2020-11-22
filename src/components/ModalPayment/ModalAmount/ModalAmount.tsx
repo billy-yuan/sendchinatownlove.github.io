@@ -242,10 +242,3 @@ const SubHeader = styled.p`
   font-size: 16px;
   margin-top: 16px;
 `;
-
-const MegaGAMBar = styled.div<{ modalView: ModalPaymentTypes.modalPages }>`
-  display: ${(props) =>
-    props.modalView === ModalPaymentTypes.modalPages.mega_gam
-      ? 'inline'
-      : 'none'};
-`;
