@@ -2,6 +2,14 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
+import Modal from '../../ModalPayment';
+
+import {
+  useModalPaymentDispatch,
+  ModalPaymentConstants,
+  ModalPaymentTypes,
+} from '../../../utilities/hooks/ModalPaymentContext';
+
 import { Campaign } from '../../../utilities/api/types';
 import { tabletScreens } from '../../../utilities/general/responsive';
 
@@ -11,6 +19,17 @@ interface Props {
 
 const MegaGamListItem = ({ campaign }: Props) => {
   const { t } = useTranslation();
+
+  const ModalPaymentDispatcher = useModalPaymentDispatch(null);
+
+  const openModal = (event) => {
+    event.preventDefault();
+    ModalPaymentDispatcher({
+      type: ModalPaymentConstants.SET_MODAL_VIEW,
+      payload: ModalPaymentTypes.modalPages.mega_gam,
+    });
+  };
+
   return (
     <Container>
       <HeroImage heroImageUrl={campaign.gallery_image_urls[0]} />
@@ -25,9 +44,19 @@ const MegaGamListItem = ({ campaign }: Props) => {
           <DonationContent>_DONATION_DATA_</DonationContent>
           {campaign.active && (
             // TODO: Open payment modal.
-            <Button className="button--filled" onClick={undefined}>
+            <Button className="button--filled" onClick={openModal}>
               {t('gamHome.megaGamListItem.giftButton')}
             </Button>
+          )}
+          {campaign.active && (
+            // TODO: Confirm what data needs to be passed into mega gam checkout
+            <Modal
+              sellerId={''}
+              sellerName={''}
+              costPerMeal={0}
+              nonProfitLocationId={''}
+              campaignId={''}
+            />
           )}
         </DonationContainer>
         <SellerDistributorContent>

@@ -2,6 +2,7 @@
   "paymentProcessing": {
     "amount": {
       "header": "您的爱心将会全数送到商家手里，帮助他们负担营运支出。您的网上交易资料将会做加密处理，款项会直接交给商家以支持他们。",
+      "mega_gam": "MegaGAM version: 100% of your support will go to the merchant.",
       "label1": "选择金额",
       "label2": "其他金额",
       "minimum": "最低",
@@ -44,7 +45,8 @@
   },
   "purchase": {
     "donation": "捐款 - {{seller}}",
-    "voucher": "购买礼品券 - {{seller}}"
+    "voucher": "购买礼品券 - {{seller}}",
+    "mega_gam": "Title of MegaGAM December etc"
   },
   "errorPage": {
     "body": {
